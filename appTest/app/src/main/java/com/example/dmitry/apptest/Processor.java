@@ -37,6 +37,7 @@ public class Processor {
         }
         else {
             serverResponseOnSignIn = new ServerResponseOnSignIn();
+            serverResponseOnSignIn.validUserData = false;
         }
         return serverResponseOnSignIn;
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 /**
  * Created by dmitry on 28.09.17.
@@ -11,7 +12,6 @@ import android.os.Handler;
 
 public class ServiceHelper implements AppResultReceiver.Receiver{
     private ServiceHelper() {}
-    public final static String RECEIVER = "RECEIVER";
 
     public interface ServiceHelperListener {
         void onServiceHelperResult(Bundle data);
@@ -24,7 +24,7 @@ public class ServiceHelper implements AppResultReceiver.Receiver{
     void sendRequest(Context context) {
         Intent intent = new Intent(context.getApplicationContext(), MyIntentService.class);
         appResultReceiver.setReceiver(this);
-        intent.putExtra(RECEIVER, appResultReceiver);
+        intent.putExtra(AppResultReceiver.class.getCanonicalName(), appResultReceiver);
         context.startService(intent);
 
     }
@@ -50,6 +50,7 @@ public class ServiceHelper implements AppResultReceiver.Receiver{
 
     @Override
     public void onReceiveResult(int resultCode, Bundle data) {
+        Log.d("1996", "TARGET SUCCESS");
         if (listener != null) {
             listener.onServiceHelperResult(data);
         }

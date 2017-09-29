@@ -2,7 +2,8 @@ package com.example.dmitry.apptest;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.os.ResultReceiver;
+import android.os.ResultReceiver;
+import android.util.Log;
 
 /**
  * Created by dmitry on 28.09.17.
@@ -11,13 +12,13 @@ import android.support.v4.os.ResultReceiver;
 public class AppResultReceiver extends ResultReceiver {
     public AppResultReceiver(Handler handler) {
         super(handler);
-
     }
 
     public interface Receiver {
         void onReceiveResult(int resultCode, Bundle data);
 
     }
+
     private Receiver receiver;
 
 
@@ -28,7 +29,9 @@ public class AppResultReceiver extends ResultReceiver {
 
     @Override
     protected void onReceiveResult(int resultCode, Bundle resultData) {
-        receiver.onReceiveResult(resultCode, resultData);
+        if (receiver != null) {
+            receiver.onReceiveResult(resultCode, resultData);
+        }
 
     }
 

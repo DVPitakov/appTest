@@ -9,11 +9,14 @@ public class ServerResponseOnSignIn {
     public String status;
     public String key;
     public String currentUserUrl;
+    public boolean validUserData = false;
 
     public ServerResponseOnSignIn() {};
 
     public boolean isOK() {
-        return status.equals(isOK());
+        return true;
 
     }
+
+
 }

@@ -37,7 +37,7 @@ public class Storage {
 
     public UserData getUserData() {
         String userLogin = this.preferences.getString(UserData.userLogin, null);
-        String userPassword = this.preferences.getString(UserData.userLogin, null);
+        String userPassword = this.preferences.getString(UserData.userPassword, null);
         return new UserData(userLogin, userPassword);
     }
 

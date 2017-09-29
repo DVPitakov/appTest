@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -26,10 +27,8 @@
             android:name=".MyIntentService"
             android:exported="false" />
 
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".UserRepositoriesActivity"></activity>
+        <activity android:name=".UserRepositoriesActivity" />
+
     </application>
 
 </manifest>
