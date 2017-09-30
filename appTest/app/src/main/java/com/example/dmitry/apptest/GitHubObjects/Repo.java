@@ -13,16 +13,19 @@ import org.json.JSONObject;
 
 public class Repo extends GitHubObject {
     public String name;
-    String description;
+    public String description;
 
     public int forks;
     public int watchers;
+
+    public Owner owner;
 
     Repo(JSONObject jsonObject) throws JSONException {
         name = jsonObject.getString("name");
         //description = jsonObject.getString("description");
         forks = jsonObject.getInt("forks");
         watchers = jsonObject.getInt("watchers");
+        owner = new Owner(jsonObject.getJSONObject("owner"));
 
     }
 
@@ -31,6 +34,7 @@ public class Repo extends GitHubObject {
          description = parcel.readString();
          forks = parcel.readInt();
          watchers = parcel.readInt();
+         owner = (Owner)parcel.readParcelable(Owner.class.getClassLoader());
 
     }
 
@@ -56,6 +60,7 @@ public class Repo extends GitHubObject {
         parcel.writeString(description);
         parcel.writeInt(forks);
         parcel.writeInt(watchers);
+        parcel.writeParcelable(owner, 0);
 
     }
 }

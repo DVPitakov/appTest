@@ -21,10 +21,11 @@ public class ServiceHelper implements AppResultReceiver.Receiver{
     private ServiceHelperListener listener;
     private static ServiceHelper instance;
 
-    void sendRequest(Context context, int action) {
+    void sendRequest(Context context, int action, String data) {
         Intent intent = new Intent(context.getApplicationContext(), MyIntentService.class);
         appResultReceiver.setReceiver(this);
         intent.putExtra(MyIntentService.MY_ACTION, action);
+        intent.putExtra(MyIntentService.MY_DATA, data);
         intent.putExtra(AppResultReceiver.class.getCanonicalName(), appResultReceiver);
         context.startService(intent);
 

@@ -19,10 +19,12 @@ public class MyIntentService extends IntentService {
     public static  final int GET_REPOS_LIST = 3;
     public static final int GET_IMAGE = 4;
     public static  final String MY_ACTION = "MY_ACTION";
+    public static  final String MY_DATA = "MY_DATA";
 
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
+            final String uri = intent.getStringExtra(MY_DATA);
             final ResultReceiver receiver
                     = intent.getParcelableExtra(AppResultReceiver.class.getCanonicalName());
             final Bundle data = new Bundle();
@@ -42,11 +44,11 @@ public class MyIntentService extends IntentService {
                     break;
                 }
                 case GET_IMAGE:{
-                    String imageUri = intent.getStringExtra("");
-                    Processor.getInstance().getImage(imageUri);
+                    serverResponse = Processor.getInstance().getImage(uri);
+                    break;
                 }
                 default: {
-                    serverResponse = null;
+                    serverResponse = new ServerResponse(0, null);
                 }
             }
             data.putInt(ServerResponse.STATUS, serverResponse.status);
