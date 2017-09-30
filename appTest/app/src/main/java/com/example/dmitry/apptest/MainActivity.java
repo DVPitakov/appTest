@@ -1,12 +1,15 @@
 package com.example.dmitry.apptest;
 
 import android.content.Intent;
+import android.content.IntentSender;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.dmitry.apptest.GitHubObjects.ServerResponse;
 
 public class MainActivity extends AppCompatActivity implements ServiceHelper.ServiceHelperListener {
 
@@ -28,23 +31,21 @@ public class MainActivity extends AppCompatActivity implements ServiceHelper.Ser
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UserRepositoriesActivity.class);
+                startActivity(intent);
                 Storage.getInstance(MainActivity.this.getBaseContext())
                         .saveUserData(new UserData(
                                 loginEdit.getText().toString()
                                 , passwordEdit.getText().toString()));
-                Log.d("1996", loginEdit.getText().toString());
-                Log.d("1996", passwordEdit.getText().toString());;
-                ServiceHelper.getInstance().sendRequest(MainActivity.this);
             }
         });
     }
 
     @Override
     public void onServiceHelperResult(Bundle data) {
-        Log.d("1996", "HOHOHO LOLOLO");
-        if (data.getString(ServerResponseOnSignIn.STATUS, null) != null) {
-            Intent intent = new Intent(this, UserRepositoriesActivity.class);
-            startActivity(intent);
+        Log.d("1996", "start");
+        if (data.getInt(ServerResponse.STATUS) == 200) {
+            Log.d("1996", "good");
         }
 
     }

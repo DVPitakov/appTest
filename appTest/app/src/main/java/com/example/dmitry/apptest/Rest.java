@@ -1,16 +1,30 @@
 package com.example.dmitry.apptest;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
 
+import com.example.dmitry.apptest.GitHubObjects.CommitsList;
+import com.example.dmitry.apptest.GitHubObjects.GitHubImage;
+import com.example.dmitry.apptest.GitHubObjects.ReposList;
+import com.example.dmitry.apptest.GitHubObjects.ServerResponse;
+import com.example.dmitry.apptest.GitHubObjects.UserInfo;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -36,45 +50,33 @@ public class Rest {
     }
 
 
-    public ServerResponseOnSignIn signIn(UserData userData) throws IOException {
+    public ServerResponse loadImage(String imageUri) throws IOException {
+        HttpURLConnection conn = (HttpURLConnection) new URL(imageUri).openConnection();
+        conn.setReadTimeout(10000);
+        conn.setConnectTimeout(15000);
+        conn.setRequestMethod("GET");
+        conn.setDoInput(true);
+        conn.setRequestProperty("Accept", "application/json");
+        if (conn.getResponseCode() == 200) {
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            GitHubImage gitHubImage = new GitHubImage(imageUri, BitmapFactory.decodeStream(bis));
+            return new ServerResponse(conn.getResponseCode(), gitHubImage);
+
+        }
+        return null;
+
+    }
+
+    public ServerResponse getUserRepos(UserData userData, UserInfo userInfo) throws IOException {
         InputStream is = null;
         try {
-
-            Log.d("1996", "kuku epta2");
-            String userDataAndPass = userData.login + ":" + userData.password;
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(userDataAndPass.getBytes());
-            byte[] digest = md.digest();
-
-            final String uri = Uri.parse(PROTOCOL + "://" + DOMAIN + "/user")
-                    .buildUpon()
-                    .build()
-                    .toString();
-            Log.d("1996", "kuku epta3");
-            HttpURLConnection conn = (HttpURLConnection) new URL(uri).openConnection();
-
-            Log.d("1996", "kuku epta4");
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            conn.setRequestProperty("Accept", "application/json");
-            conn.setRequestProperty("Authorization", "Basic "
-                    + Base64.encodeToString(userDataAndPass.getBytes(), Base64.DEFAULT));
-            Log.d("1996", "kuku epta5");
-            conn.connect();
-            Log.d("1996", "kuku epta6");
-
+            HttpURLConnection conn = sendRequest(userData, userInfo.reposUrl);
             int responseCode = conn.getResponseCode();
-            Log.d("1996", "kuku epta7+++" + conn.getResponseCode());
-            Log.d("1996", "kuku epta8");
             if (responseCode == 200) {
                 is = conn.getInputStream();
-                Log.d("1996", conn.getHeaderField("X-GitHub-SSO"));
-                return inputStreamToString(is);
+                return new ServerResponse(responseCode, inputJsonStreamToRepos(is));
             }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
         } finally {
             if(is != null) {
                 is.close();
@@ -83,27 +85,97 @@ public class Rest {
         return null;
     }
 
-    private static ServerResponseOnSignIn inputStreamToString(final InputStream is) throws IOException {
+
+    public ServerResponse signIn(UserData userData) throws IOException {
+        InputStream is = null;
+        try {
+            HttpURLConnection conn = sendRequest(userData, PROTOCOL + "://" + DOMAIN + "/user");
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                is = conn.getInputStream();
+                return new ServerResponse(responseCode, inputJsonStreamToUserInfo(is));
+            }
+        } finally {
+            if(is != null) {
+                is.close();
+            }
+        }
+        return null;
+
+    }
+
+    private HttpURLConnection sendRequest(UserData userData, String path) throws IOException {
+        String userDataAndPass = userData.login + ":" + userData.password;
+        final String uri = Uri.parse(path)
+                .buildUpon()
+                .build()
+                .toString();
+        HttpURLConnection conn = (HttpURLConnection) new URL(uri).openConnection();
+        conn.setReadTimeout(10000);
+        conn.setConnectTimeout(15000);
+        conn.setRequestMethod("GET");
+        conn.setDoInput(true);
+        conn.setRequestProperty("Accept", "application/json");
+        conn.setRequestProperty("Authorization", "Basic "
+                + Base64.encodeToString(userDataAndPass.getBytes(), Base64.DEFAULT));
+        conn.connect();
+        return conn;
+    }
+
+    @Nullable
+    private static UserInfo inputJsonStreamToUserInfo(final InputStream is) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
         StringBuilder stringBuilder = new StringBuilder();
         String line;
         while((line = bufferedReader.readLine()) != null){
             stringBuilder.append(line);
         }
-
         String res = stringBuilder.toString();
-        ServerResponseOnSignIn serverResponseOnSignIn = new ServerResponseOnSignIn();
+        UserInfo userInfo = null;
         try {
-            //X-GitHub-SSO
+            userInfo = new UserInfo(new JSONObject(res));
+        }
+        catch (Exception e) {}
+        return userInfo;
 
-            JSONObject jsonObject = new JSONObject(res);
-            //cource.currency = jsonObject.getString("currency");
-            //cource.value = Integer.toString(jsonObject.getInt("value"));
-            //cource.status = Cource.OK;
+    }
+
+    @Nullable
+    private static ReposList inputJsonStreamToRepos(final InputStream is) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        while((line = bufferedReader.readLine()) != null){
+            stringBuilder.append(line);
         }
-        catch (Exception e) {
-            //cource.status = Cource.ERROR;
+        String res = stringBuilder.toString();
+        ReposList reposList = null;
+        try {
+            reposList = new ReposList(new JSONArray(res));
+
         }
-        return serverResponseOnSignIn;
+        catch (Exception e) {}
+        return reposList;
+
+    }
+
+    @Nullable
+    private static CommitsList inputJsonStreamToCommits(final InputStream is) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        while((line = bufferedReader.readLine()) != null){
+            stringBuilder.append(line);
+        }
+        String res = stringBuilder.toString();
+        CommitsList commitsList = null;
+        try {
+            commitsList = new CommitsList(new JSONArray(res));
+
+        }
+        catch (Exception e) {}
+        return commitsList;
+
     }
 }
+

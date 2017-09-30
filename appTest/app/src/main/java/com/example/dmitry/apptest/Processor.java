@@ -1,6 +1,10 @@
 package com.example.dmitry.apptest;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.example.dmitry.apptest.GitHubObjects.ServerResponse;
+import com.example.dmitry.apptest.GitHubObjects.UserInfo;
 
 import java.io.IOException;
 
@@ -12,6 +16,7 @@ public class Processor {
     private Processor() {}
 
     private static Processor instance;
+    private static UserInfo userInfo;
 
     public static Processor getInstance() {
         if (instance == null) {
@@ -20,26 +25,68 @@ public class Processor {
         return instance;
     }
 
-    ServerResponseOnSignIn trySignIn() {
-        ServerResponseOnSignIn serverResponseOnSignIn;
+    @Nullable
+    ServerResponse trySignIn() {
+        ServerResponse serverResponse;
         UserData userData = Storage.getInstance(null).getUserData();
         if (userData.isValid()) {
             try {
-                serverResponseOnSignIn = Rest.getInstance().signIn(userData);
-                if(serverResponseOnSignIn.isOK()) {
+                serverResponse = Rest.getInstance().signIn(userData);
+                if(serverResponse != null && serverResponse.status == 200) {
+                    userInfo = (UserInfo)serverResponse.gitHubObject;
                     Storage.getInstance(null).saveUserData(userData);
                 }
             } catch (IOException e) {
-                serverResponseOnSignIn = new ServerResponseOnSignIn();
                 Log.d("err", "invalid user data");
 
             }
         }
-        else {
-            serverResponseOnSignIn = new ServerResponseOnSignIn();
-            serverResponseOnSignIn.validUserData = false;
+        return null;
+
+    }
+
+    ServerResponse getReposList() {
+        UserData userData = Storage.getInstance(null).getUserData();
+        if (userData.isValid()) {
+            try {
+                return Rest.getInstance().getUserRepos(userData, userInfo);
+            } catch (IOException e) {
+                Log.d("err", "invalid user data");
+
+            }
         }
-        return serverResponseOnSignIn;
+        return null;
+
+    }
+
+    ServerResponse getImage(String imageUri) {
+        UserData userData = Storage.getInstance(null).getUserData();
+        if (userData.isValid()) {
+            try {
+                return Rest.getInstance().loadImage(imageUri);
+            } catch (IOException e) {
+                Log.d("err", "invalid user data");
+
+            }
+        }
+        return null;
+
+    }
+
+    ServerResponse getCommitsList() {
+        UserData userData = Storage.getInstance(null).getUserData();
+        if (userInfo == null) {
+            trySignIn();
+        }
+        if (userData.isValid()) {
+            try {
+                return Rest.getInstance().getUserRepos(userData, userInfo);
+            } catch (IOException e) {
+                Log.d("err", "invalid user data");
+
+            }
+        }
+        return null;
 
     }
 }

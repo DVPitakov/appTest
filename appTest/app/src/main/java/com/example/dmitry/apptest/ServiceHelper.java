@@ -21,9 +21,10 @@ public class ServiceHelper implements AppResultReceiver.Receiver{
     private ServiceHelperListener listener;
     private static ServiceHelper instance;
 
-    void sendRequest(Context context) {
+    void sendRequest(Context context, int action) {
         Intent intent = new Intent(context.getApplicationContext(), MyIntentService.class);
         appResultReceiver.setReceiver(this);
+        intent.putExtra(MyIntentService.MY_ACTION, action);
         intent.putExtra(AppResultReceiver.class.getCanonicalName(), appResultReceiver);
         context.startService(intent);
 
@@ -50,7 +51,6 @@ public class ServiceHelper implements AppResultReceiver.Receiver{
 
     @Override
     public void onReceiveResult(int resultCode, Bundle data) {
-        Log.d("1996", "TARGET SUCCESS");
         if (listener != null) {
             listener.onServiceHelperResult(data);
         }
