@@ -31,7 +31,7 @@ public class CommitsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return commitsList.commits.size() * 2;
+        return commitsList.commits.size() * 4;
 
     }
 
