@@ -3,6 +3,7 @@ package com.example.dmitry.apptest.GitHubObjects;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,9 +16,10 @@ import java.util.ArrayList;
 
 public class CommitsList extends GitHubObject {
 
-    private ArrayList<Commit> commits = new ArrayList<>();
+    public ArrayList<Commit> commits = new ArrayList<>();
 
     public CommitsList(JSONArray jsonArray) throws JSONException {
+        Log.d("1996", jsonArray.toString());
         for (int i = 0; i < jsonArray.length(); i++) {
             commits.add(new Commit(jsonArray.getJSONObject(i)));
         }

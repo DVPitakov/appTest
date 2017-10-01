@@ -68,10 +68,10 @@ public class Rest {
 
     }
 
-    public ServerResponse getUserRepos(UserData userData, UserInfo userInfo) throws IOException {
+    public ServerResponse getUserRepos(UserData userData, String uri) throws IOException {
         InputStream is = null;
         try {
-            HttpURLConnection conn = sendRequest(userData, userInfo.reposUrl);
+            HttpURLConnection conn = sendRequest(userData, uri);
             int responseCode = conn.getResponseCode();
             if (responseCode == 200) {
                 is = conn.getInputStream();
@@ -84,6 +84,24 @@ public class Rest {
         }
         return null;
     }
+
+    public ServerResponse getCommits(UserData userData, String url) throws IOException {
+        InputStream is = null;
+        try {
+            HttpURLConnection conn = sendRequest(userData, url);
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                is = conn.getInputStream();
+                return new ServerResponse(responseCode, inputJsonStreamToCommits(is));
+            }
+        } finally {
+            if(is != null) {
+                is.close();
+            }
+        }
+        return null;
+    }
+
 
 
     public ServerResponse signIn(UserData userData) throws IOException {

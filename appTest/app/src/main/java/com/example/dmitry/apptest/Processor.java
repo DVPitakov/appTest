@@ -33,8 +33,7 @@ public class Processor {
             try {
                 serverResponse = Rest.getInstance().signIn(userData);
                 if(serverResponse != null && serverResponse.status == 200) {
-                    userInfo = (UserInfo)serverResponse.gitHubObject;
-                    Storage.getInstance(null).saveUserData(userData);
+                    return Rest.getInstance().signIn(userData);
                 }
             } catch (IOException e) {
                 Log.d("err", "invalid user data");
@@ -45,11 +44,11 @@ public class Processor {
 
     }
 
-    ServerResponse getReposList() {
+    ServerResponse getReposList(String uri) {
         UserData userData = Storage.getInstance(null).getUserData();
         if (userData.isValid()) {
             try {
-                return Rest.getInstance().getUserRepos(userData, userInfo);
+                return Rest.getInstance().getUserRepos(userData, uri);
             } catch (IOException e) {
                 Log.d("err", "invalid user data");
 
@@ -73,14 +72,14 @@ public class Processor {
 
     }
 
-    ServerResponse getCommitsList() {
+    ServerResponse getCommitsList(String uri) {
         UserData userData = Storage.getInstance(null).getUserData();
         if (userInfo == null) {
             trySignIn();
         }
         if (userData.isValid()) {
             try {
-                return Rest.getInstance().getUserRepos(userData, userInfo);
+                return Rest.getInstance().getCommits(userData, uri);
             } catch (IOException e) {
                 Log.d("err", "invalid user data");
 

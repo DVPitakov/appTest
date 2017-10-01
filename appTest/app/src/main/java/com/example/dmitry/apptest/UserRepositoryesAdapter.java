@@ -61,40 +61,42 @@ public class UserRepositoryesAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(i % 3 == 2) {
             ImageView imageView;
-            if (view == null) {
+            if (view == null || view.getClass() !=ImageView.class) {
                 imageView = new ImageView(context);
             } else {
                 imageView = (ImageView) view;
             }
             if (images.get(imageUrls.get(i / 3)) == null) {
-                imageView.setImageResource(R.mipmap.ic_launcher);
+                imageView.setImageResource(R.mipmap.ic_launcher_round);
             }
             else {
                 imageView.setImageBitmap(images.get(imageUrls.get(i / 3)));
+                views.put(imageUrls.get(i / 3), imageView);
             }
-            views.put(imageUrls.get(i / 3), imageView);
 
-            imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
+            imageView.setLayoutParams(new GridView.LayoutParams(180, 120));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
-            return imageView;
+            return (View)imageView;
+
         } else {
             TextView textView;
-            if (view == null) {
+            if (view == null || view.getClass() != TextView.class) {
                 textView = new TextView(context);
-                textView.setLayoutParams(new GridView.LayoutParams(120, 120));
+                textView.setLayoutParams(new GridView.LayoutParams(180, 120));
                 textView.setPadding(8, 8, 8, 8);
             }
             else {
                 textView = (TextView)view;
             }
+
             if (i % 3 == 0) {
                 textView.setText(names.get(i / 3));
             }
             else {
                 textView.setText(logins.get(i / 3));
             }
-            return textView;
+            return (View)textView;
 
         }
     }

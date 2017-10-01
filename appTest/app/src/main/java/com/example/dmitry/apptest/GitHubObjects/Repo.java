@@ -3,6 +3,7 @@ package com.example.dmitry.apptest.GitHubObjects;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 public class Repo extends GitHubObject {
     public String name;
     public String description;
+    public String commitsUrl;
 
     public int forks;
     public int watchers;
@@ -26,7 +28,7 @@ public class Repo extends GitHubObject {
         forks = jsonObject.getInt("forks");
         watchers = jsonObject.getInt("watchers");
         owner = new Owner(jsonObject.getJSONObject("owner"));
-
+        commitsUrl = jsonObject.getString("commits_url").replaceAll("\\{/sha\\}", "");
     }
 
      private Repo(Parcel parcel) {
@@ -34,7 +36,8 @@ public class Repo extends GitHubObject {
          description = parcel.readString();
          forks = parcel.readInt();
          watchers = parcel.readInt();
-         owner = (Owner)parcel.readParcelable(Owner.class.getClassLoader());
+         owner = parcel.readParcelable(Owner.class.getClassLoader());
+         commitsUrl = parcel.readString();
 
     }
 
@@ -61,6 +64,7 @@ public class Repo extends GitHubObject {
         parcel.writeInt(forks);
         parcel.writeInt(watchers);
         parcel.writeParcelable(owner, 0);
+        parcel.writeString(commitsUrl);
 
     }
 }

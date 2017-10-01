@@ -16,16 +16,24 @@ import java.util.logging.Handler;
 public class Commit extends GitHubObject{
     public String sha;
     public String message;
+    public String author;
+    public String date;
 
     public Commit(JSONObject jsonObject) throws JSONException {
-        message = jsonObject.getString("message");
+        JSONObject jo = jsonObject.getJSONObject("commit");
+        message = jo.getString("message");
         sha = jsonObject.getString("sha");
+        JSONObject jo2 = jo.getJSONObject("author");
+        author = jo2.getString("email");
+        date = jo2.getString("date");
 
     }
 
     public Commit(Parcel parcel) {
         sha = parcel.readString();
         message = parcel.readString();
+        author = parcel.readString();
+        date = parcel.readString();
 
     }
 
@@ -49,6 +57,8 @@ public class Commit extends GitHubObject{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(sha);
         parcel.writeString(message);
+        parcel.writeString(author);
+        parcel.writeString(date);
 
     }
 }

@@ -36,11 +36,14 @@ public class MyIntentService extends IntentService {
                     break;
                 }
                 case GET_COMMITS_LIST:{
-                    serverResponse = Processor.getInstance().getCommitsList();
+                    Log.d("1996", uri);
+                    serverResponse = Processor.getInstance().getCommitsList(uri);
+                    Log.d("1996", "END" + serverResponse);
+                    Log.d("1996", "END" + serverResponse.gitHubObject);
                     break;
                 }
                 case GET_REPOS_LIST:{
-                    serverResponse = Processor.getInstance().getReposList();
+                    serverResponse = Processor.getInstance().getReposList(uri);
                     break;
                 }
                 case GET_IMAGE:{

@@ -1,6 +1,7 @@
 package com.example.dmitry.apptest.GitHubObjects;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +17,22 @@ public class UserInfo  extends GitHubObject {
         reposUrl = jsonObject.getString("repos_url");
 
     }
+
+    private UserInfo(Parcel parcel) {
+        reposUrl = parcel.readString();
+
+    }
+
+    public static final Parcelable.Creator<UserInfo> CREATOR = new Parcelable.Creator<UserInfo>() {
+        public UserInfo createFromParcel(Parcel in) {
+            return new UserInfo(in);
+        }
+
+        @Override
+        public UserInfo[] newArray(int i) {
+            return new UserInfo[i];
+        }
+    };
 
     @Override
     public int describeContents() {
