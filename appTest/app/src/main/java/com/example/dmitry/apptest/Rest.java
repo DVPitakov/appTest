@@ -64,7 +64,9 @@ public class Rest {
             return new ServerResponse(conn.getResponseCode(), gitHubImage);
 
         }
-        return null;
+        else {
+            return  new ServerResponse(conn.getResponseCode(), null);
+        }
 
     }
 
@@ -77,12 +79,14 @@ public class Rest {
                 is = conn.getInputStream();
                 return new ServerResponse(responseCode, inputJsonStreamToRepos(is));
             }
+            else {
+                return new ServerResponse(responseCode, null);
+            }
         } finally {
             if(is != null) {
                 is.close();
             }
         }
-        return null;
     }
 
     public ServerResponse getCommits(UserData userData, String url) throws IOException {
@@ -94,12 +98,14 @@ public class Rest {
                 is = conn.getInputStream();
                 return new ServerResponse(responseCode, inputJsonStreamToCommits(is));
             }
+            else {
+                return new ServerResponse(responseCode, inputJsonStreamToCommits(is));
+            }
         } finally {
             if(is != null) {
                 is.close();
             }
         }
-        return null;
     }
 
 
@@ -113,12 +119,14 @@ public class Rest {
                 is = conn.getInputStream();
                 return new ServerResponse(responseCode, inputJsonStreamToUserInfo(is));
             }
+            else {
+                return new ServerResponse(responseCode, null);
+            }
         } finally {
             if(is != null) {
                 is.close();
             }
         }
-        return null;
 
     }
 

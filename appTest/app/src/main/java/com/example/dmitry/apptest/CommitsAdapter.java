@@ -50,12 +50,15 @@ public class CommitsAdapter extends BaseAdapter {
         TextView textView;
         if (view == null || view.getClass() != TextView.class) {
             textView = new TextView(context);
-            textView.setLayoutParams(new GridView.LayoutParams(180, 120));
+            textView.setLayoutParams(new GridView.LayoutParams(
+                    (int)context.getResources().getDimension(R.dimen.UserRepoW),
+                    (int)context.getResources().getDimension(R.dimen.UserRepoH)));
             textView.setPadding(8, 8, 8, 8);
         }
         else {
             textView = (TextView)view;
         }
+        textView.setTextSize(10);
         switch (i % 4) {
             case 0: {
                 textView.setText(commitsList.commits.get(i >> 2).sha);

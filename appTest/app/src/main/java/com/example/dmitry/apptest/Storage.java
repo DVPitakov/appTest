@@ -2,6 +2,7 @@ package com.example.dmitry.apptest;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 /**
  * Created by dmitry on 28.09.17.
@@ -30,6 +31,8 @@ public class Storage {
             this.preferences.edit().remove(UserData.userPassword).apply();
         }
         else {
+            Log.d("1996", "123=" + userData.userLogin);
+            Log.d("1996", "123=" + userData.userPassword);
             this.preferences.edit().putString(UserData.userLogin, userData.login).apply();
             this.preferences.edit().putString(UserData.userPassword, userData.password).apply();
         }
@@ -38,6 +41,8 @@ public class Storage {
     public UserData getUserData() {
         String userLogin = this.preferences.getString(UserData.userLogin, null);
         String userPassword = this.preferences.getString(UserData.userPassword, null);
+        Log.d("1996", "456=" + userLogin);
+        Log.d("1996", "456=" + userPassword);
         return new UserData(userLogin, userPassword);
     }
 

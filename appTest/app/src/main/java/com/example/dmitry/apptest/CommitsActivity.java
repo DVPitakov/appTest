@@ -25,13 +25,25 @@ public class CommitsActivity extends AppCompatActivity implements ServiceHelper.
     CommitsAdapter adapter;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        ServiceHelper.getInstance().setListener(this);
+    }
+
+    @Override
     public void onServiceHelperResult(Bundle data) {
+        if((data.getInt(ServerResponse.STATUS) < 0)) {
+            Alertic.show(CommitsActivity.this, "Ошибка соединения",
+                    "С интернетом возникла проблема, не могу загрузить коммиты");
+            CommitsActivity.this.finish();
+            return;
+        }
         if(data.getInt(ServerResponse.STATUS) == 200) {
             GitHubObject gitHubObject = data.getParcelable(ServerResponse.PARCEABLE);
-            Log.d("1996", "TTTTTTT");
             if (gitHubObject.getClass() == CommitsList.class) {
-                Log.d("1996", "DDDDDDD");
                 adapter = new CommitsAdapter(this, (CommitsList)gitHubObject);
+                gvMain.setMinimumHeight((int)getResources().getDimension(R.dimen.UserRepoH));
+                gvMain.setVerticalSpacing((int)getResources().getDimension(R.dimen.UserRepoH));
                 gvMain.setAdapter(adapter);
                 gvMain.setNumColumns(4);
             }

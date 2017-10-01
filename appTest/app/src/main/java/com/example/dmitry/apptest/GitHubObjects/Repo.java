@@ -24,7 +24,6 @@ public class Repo extends GitHubObject {
 
     Repo(JSONObject jsonObject) throws JSONException {
         name = jsonObject.getString("name");
-        //description = jsonObject.getString("description");
         forks = jsonObject.getInt("forks");
         watchers = jsonObject.getInt("watchers");
         owner = new Owner(jsonObject.getJSONObject("owner"));

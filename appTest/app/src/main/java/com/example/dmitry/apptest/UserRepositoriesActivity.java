@@ -21,16 +21,16 @@ import com.example.dmitry.apptest.GitHubObjects.ServerResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class UserRepositoriesActivity extends AppCompatActivity implements ServiceHelper.ServiceHelperListener {
 
-    ArrayList<String> data = new ArrayList<>();
     GridView gvMain;
     ReposList reposList;
     UserRepositoryesAdapter adapter;
-    ArrayList<String> repos = new ArrayList<>();
-    ArrayList<String> logins = new ArrayList<>();
     ArrayList<String> imageUrls = new ArrayList<>();
+    HashMap<String, Bitmap> images = new HashMap<>();
+    HashMap<String, View> views = new HashMap<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,15 @@ public class UserRepositoriesActivity extends AppCompatActivity implements Servi
         String uri = getIntent().getStringExtra("repoUrl");
         ServiceHelper.getInstance().removeListener();
         ServiceHelper.getInstance().setListener(this);
-        ServiceHelper.getInstance().sendRequest(this.getBaseContext(),
-                MyIntentService.GET_REPOS_LIST, uri);
+
+        //reposList = savedInstanceState.
+        if (reposList == null) {
+            ServiceHelper.getInstance().sendRequest(this.getBaseContext(),
+                    MyIntentService.GET_REPOS_LIST, uri);
+        }
+        else {
+            updateGrid();
+        }
 
         setContentView(R.layout.activity_user_repositories);
 
@@ -47,47 +54,53 @@ public class UserRepositoriesActivity extends AppCompatActivity implements Servi
         gvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i % 3 == 2) {
                     Intent intent = new Intent(UserRepositoriesActivity.this, CommitsActivity.class);
-                    intent.putExtra("repoUrl", reposList.repos.get(i / 3).commitsUrl);
+                    intent.putExtra("repoUrl", reposList.repos.get(i / 5).commitsUrl);
                     startActivity(intent);
-                }
             }
         });
     }
 
     @Override
     public void onServiceHelperResult(Bundle data) {
+        if((data.getInt(ServerResponse.STATUS) < 0)) {
+            Alertic.show(UserRepositoriesActivity.this, "Ошибка соединения",
+                    "С интернетом возникла проблема");
+            UserRepositoriesActivity.this.finish();
+            return;
+        }
         if(data.getInt(ServerResponse.STATUS) == 200) {
-            HashMap<String, Bitmap> images = new HashMap<>();
-            HashMap<String, View> views = new HashMap<>();
             GitHubObject gitHubObject = data.getParcelable(ServerResponse.PARCEABLE);
             if (gitHubObject.getClass() == ReposList.class) {
                 reposList = (ReposList)gitHubObject;
                 for(Repo repo: reposList.repos) {
-                    repos.add(repo.name);
-                    logins.add(repo.owner.login);
                     imageUrls.add(repo.owner.avatarUrl);
-                    ServiceHelper.getInstance().sendRequest(UserRepositoriesActivity.this
-                            ,MyIntentService.GET_IMAGE, repo.owner.avatarUrl);
                 }
-
-                adapter = new UserRepositoryesAdapter(this, repos, logins, imageUrls, images, views);
-                gvMain.setAdapter(adapter);
-                gvMain.setNumColumns(3);
+                HashSet<String> hashSet = new HashSet<>(imageUrls);
+                for(String url: hashSet) {
+                    ServiceHelper.getInstance().sendRequest(UserRepositoriesActivity.this
+                            ,MyIntentService.GET_IMAGE, url);
+                }
+                adapter = new UserRepositoryesAdapter(this, reposList, imageUrls, images, views);
             }
             else if(gitHubObject.getClass() == GitHubImage.class) {
                 GitHubImage gitHubImage = (GitHubImage)gitHubObject;
                 images.put(gitHubImage.uri, gitHubImage.bitmap);
-                adapter = new UserRepositoryesAdapter(this, repos, logins, imageUrls, images, views);
-                gvMain.setAdapter(adapter);
-                gvMain.setNumColumns(3);
 
             }
+            updateGrid();
 
         }
 
 
+    }
+
+    void updateGrid() {
+        gvMain.setAdapter(adapter);
+        gvMain.setHorizontalSpacing(0);
+        gvMain.setMinimumHeight((int)getResources().getDimension(R.dimen.UserRepoH));
+        gvMain.setVerticalSpacing((int)getResources().getDimension(R.dimen.UserRepoH));
+        gvMain.setNumColumns(5);
     }
 
     @Override

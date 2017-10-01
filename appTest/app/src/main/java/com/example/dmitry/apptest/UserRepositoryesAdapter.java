@@ -12,6 +12,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dmitry.apptest.GitHubObjects.ReposList;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,21 +22,19 @@ import java.util.HashMap;
  */
 
 public class UserRepositoryesAdapter extends BaseAdapter {
+    private final int yy = 5;
     private Context context;
-    ArrayList<String> logins = new ArrayList<>();
-    ArrayList<String> names = new ArrayList<>();
+    ReposList reposList;
     ArrayList<String> imageUrls = new ArrayList<>();
     HashMap<String, Bitmap> images = new HashMap<>();
     HashMap<String, View> views = new HashMap<>();
 
     UserRepositoryesAdapter(Context context
-            , ArrayList<String> logins
-            , ArrayList<String> names
+            , ReposList reposList
             , ArrayList<String> imageUrls
             , HashMap<String, Bitmap> images
             , HashMap<String, View> views) {
-        this.logins = logins;
-        this.names = names;
+        this.reposList = reposList;
         this.images = images;
         this.imageUrls = imageUrls;
         this.context = context;
@@ -44,7 +44,7 @@ public class UserRepositoryesAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return logins.size() * 3;
+        return reposList.repos.size() * yy + 5;
     }
 
     @Override
@@ -59,44 +59,73 @@ public class UserRepositoryesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(i % 3 == 2) {
+        if(i < 5) {
+            final String[] strs = {"Имя гитхаба", "Автор", "Картинка", "Просмотры", "Фоловеры"};
+            TextView textView;
+            if (view == null || view.getClass() != TextView.class) {
+                textView = new TextView(context);
+            }
+            else {
+                textView = (TextView)view;
+            }
+            textView.setLayoutParams(new GridView.LayoutParams(
+                    (int)context.getResources().getDimension(R.dimen.UserRepoW),
+                    (int)context.getResources().getDimension(R.dimen.UserRepoH)));
+            textView.setPadding(8, 8, 8, 8);
+            textView.setText(strs[i]);
+            return textView;
+        }
+        i -= 5;
+        if(i % yy == 2) {
             ImageView imageView;
             if (view == null || view.getClass() !=ImageView.class) {
                 imageView = new ImageView(context);
             } else {
                 imageView = (ImageView) view;
             }
-            if (images.get(imageUrls.get(i / 3)) == null) {
+            if (images.get(imageUrls.get(i / yy)) == null) {
                 imageView.setImageResource(R.mipmap.ic_launcher_round);
             }
             else {
-                imageView.setImageBitmap(images.get(imageUrls.get(i / 3)));
-                views.put(imageUrls.get(i / 3), imageView);
+                imageView.setImageBitmap(images.get(imageUrls.get(i / 5)));
+                views.put(imageUrls.get(i / yy), imageView);
             }
 
-            imageView.setLayoutParams(new GridView.LayoutParams(180, 120));
+            imageView.setLayoutParams(new GridView.LayoutParams(
+                    (int)context.getResources().getDimension(R.dimen.UserRepoH),
+                    (int)context.getResources().getDimension(R.dimen.UserRepoH)));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
-            return (View)imageView;
+            return imageView;
 
         } else {
             TextView textView;
             if (view == null || view.getClass() != TextView.class) {
                 textView = new TextView(context);
-                textView.setLayoutParams(new GridView.LayoutParams(180, 120));
+                textView.setLayoutParams(new GridView.LayoutParams(
+                        (int)context.getResources().getDimension(R.dimen.UserRepoW),
+                        (int)context.getResources().getDimension(R.dimen.UserRepoH)));
                 textView.setPadding(8, 8, 8, 8);
             }
             else {
                 textView = (TextView)view;
             }
 
-            if (i % 3 == 0) {
-                textView.setText(names.get(i / 3));
+
+            textView.setTextSize(10);
+            if (i % yy == 0) {
+                textView.setText(reposList.repos.get(i / yy).name);
             }
-            else {
-                textView.setText(logins.get(i / 3));
+            else if (i % yy == 1) {
+                textView.setText(reposList.repos.get(i / yy).owner.login);
             }
-            return (View)textView;
+            else if (i % yy == 3) {
+                textView.setText(String.valueOf(reposList.repos.get(i / yy).watchers));
+            }
+            else if (i % yy == 4) {
+                textView.setText(String.valueOf(reposList.repos.get(i / yy).forks));
+            }
+            return textView;
 
         }
     }

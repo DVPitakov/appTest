@@ -20,6 +20,7 @@ public class MyIntentService extends IntentService {
     public static final int GET_IMAGE = 4;
     public static  final String MY_ACTION = "MY_ACTION";
     public static  final String MY_DATA = "MY_DATA";
+    UserData userData = new UserData();
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -30,20 +31,21 @@ public class MyIntentService extends IntentService {
             final Bundle data = new Bundle();
             int event = intent.getIntExtra(MY_ACTION, 1);
             ServerResponse serverResponse;
+            userData = Storage.getInstance(null).getUserData();
+            Log.d("1996", "here");
+            Log.d("1996", userData.login);
+            Log.d("1996", userData.password);
             switch(event) {
                 case TRY_SIGN_IN:{
-                    serverResponse = Processor.getInstance().trySignIn();
+                    serverResponse = Processor.getInstance().trySignIn(userData);
                     break;
                 }
                 case GET_COMMITS_LIST:{
-                    Log.d("1996", uri);
-                    serverResponse = Processor.getInstance().getCommitsList(uri);
-                    Log.d("1996", "END" + serverResponse);
-                    Log.d("1996", "END" + serverResponse.gitHubObject);
+                    serverResponse = Processor.getInstance().getCommitsList(userData, uri);
                     break;
                 }
                 case GET_REPOS_LIST:{
-                    serverResponse = Processor.getInstance().getReposList(uri);
+                    serverResponse = Processor.getInstance().getReposList(userData, uri);
                     break;
                 }
                 case GET_IMAGE:{

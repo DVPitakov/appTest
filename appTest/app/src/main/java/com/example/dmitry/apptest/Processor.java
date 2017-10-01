@@ -15,8 +15,13 @@ import java.io.IOException;
 public class Processor {
     private Processor() {}
 
+    public final static int CONNECTION_ERROR_1 = -1;
+    public final static int CONNECTION_ERROR_2 = -2;
+    public final static int CONNECTION_ERROR_3 = -3;
+    public final static int CONNECTION_ERROR_4 = -4;
+
+
     private static Processor instance;
-    private static UserInfo userInfo;
 
     public static Processor getInstance() {
         if (instance == null) {
@@ -26,66 +31,42 @@ public class Processor {
     }
 
     @Nullable
-    ServerResponse trySignIn() {
-        ServerResponse serverResponse;
-        UserData userData = Storage.getInstance(null).getUserData();
-        if (userData.isValid()) {
-            try {
-                serverResponse = Rest.getInstance().signIn(userData);
-                if(serverResponse != null && serverResponse.status == 200) {
-                    return Rest.getInstance().signIn(userData);
-                }
-            } catch (IOException e) {
-                Log.d("err", "invalid user data");
+    ServerResponse trySignIn(UserData userData) {
+        try {
+            return Rest.getInstance().signIn(userData);
+        } catch (IOException e) {
+            return new ServerResponse(CONNECTION_ERROR_1, null);
 
-            }
         }
-        return null;
 
     }
 
-    ServerResponse getReposList(String uri) {
-        UserData userData = Storage.getInstance(null).getUserData();
-        if (userData.isValid()) {
-            try {
-                return Rest.getInstance().getUserRepos(userData, uri);
-            } catch (IOException e) {
-                Log.d("err", "invalid user data");
-
-            }
+    ServerResponse getReposList(UserData userData, String uri) {
+        try {
+            return Rest.getInstance().getUserRepos(userData, uri);
+        } catch (IOException e) {
+            return new ServerResponse(CONNECTION_ERROR_2, null);
         }
-        return null;
 
     }
 
     ServerResponse getImage(String imageUri) {
-        UserData userData = Storage.getInstance(null).getUserData();
-        if (userData.isValid()) {
-            try {
-                return Rest.getInstance().loadImage(imageUri);
-            } catch (IOException e) {
-                Log.d("err", "invalid user data");
-
-            }
+        try {
+            return Rest.getInstance().loadImage(imageUri);
+        } catch (IOException e) {
+            return new ServerResponse(CONNECTION_ERROR_3, null);
         }
-        return null;
+
+
 
     }
 
-    ServerResponse getCommitsList(String uri) {
-        UserData userData = Storage.getInstance(null).getUserData();
-        if (userInfo == null) {
-            trySignIn();
+    ServerResponse getCommitsList(UserData userData, String uri) {
+        try {
+            return Rest.getInstance().getCommits(userData, uri);
+        } catch (IOException e) {
+            return new ServerResponse(CONNECTION_ERROR_4, null);
         }
-        if (userData.isValid()) {
-            try {
-                return Rest.getInstance().getCommits(userData, uri);
-            } catch (IOException e) {
-                Log.d("err", "invalid user data");
-
-            }
-        }
-        return null;
 
     }
 }
