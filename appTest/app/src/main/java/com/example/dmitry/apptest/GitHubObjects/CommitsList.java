@@ -19,7 +19,6 @@ public class CommitsList extends GitHubObject {
     public ArrayList<Commit> commits = new ArrayList<>();
 
     public CommitsList(JSONArray jsonArray) throws JSONException {
-        Log.d("1996", jsonArray.toString());
         for (int i = 0; i < jsonArray.length(); i++) {
             commits.add(new Commit(jsonArray.getJSONObject(i)));
         }

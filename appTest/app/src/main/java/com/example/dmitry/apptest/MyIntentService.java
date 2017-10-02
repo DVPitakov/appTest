@@ -32,9 +32,6 @@ public class MyIntentService extends IntentService {
             int event = intent.getIntExtra(MY_ACTION, 1);
             ServerResponse serverResponse;
             userData = Storage.getInstance(null).getUserData();
-            Log.d("1996", "here");
-            Log.d("1996", userData.login);
-            Log.d("1996", userData.password);
             switch(event) {
                 case TRY_SIGN_IN:{
                     serverResponse = Processor.getInstance().trySignIn(userData);
