@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Oct 02 09:46:45 MSK 2017
+#Mon Oct 02 10:18:51 MSK 2017
 20.base=/home/dmitry/appTest/appTest/app/build/intermediates/res/resources-debug.ap_
 143.base=/home/dmitry/appTest/appTest/app/build/intermediates/res/resources-debug.ap_
 493.base=/home/dmitry/appTest/appTest/app/build/intermediates/res/resources-debug.ap_

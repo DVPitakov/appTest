@@ -55,8 +55,11 @@ public class UserRepositoriesActivity extends AppCompatActivity implements Servi
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = new Intent(UserRepositoriesActivity.this, CommitsActivity.class);
+                if (i >= 5) {
+                    i -= 5;
                     intent.putExtra("repoUrl", reposList.repos.get(i / 5).commitsUrl);
                     startActivity(intent);
+                }
             }
         });
     }
