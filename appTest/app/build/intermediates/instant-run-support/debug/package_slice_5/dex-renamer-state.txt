@@ -1,0 +1,4 @@
+#Thu Sep 28 16:24:21 MSK 2017
+base.0=/home/dmitry/appTest/appTest/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_5
+renamed.0=classes.dex
+file.0=/home/dmitry/appTest/appTest/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_5/classes.dex

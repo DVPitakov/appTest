@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/mipmap-xxhdpi/ic_launcher_round.png",
+        "source": "/home/dmitry/appTest/appTest/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/mipmap-xxhdpi/ic_launcher.png",
+        "source": "/home/dmitry/appTest/appTest/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    }
+]
