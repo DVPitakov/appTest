@@ -6,19 +6,19 @@
     density="xxxhdpi"
     format="10"
     plugin-version="2.3.0"
-    timestamp="1507112449629"
+    timestamp="1507112765469"
     token="8531898008548327956"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="77" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="96" />
+        duration="9" />
     <task
         name="verifier"
         duration="0" />
@@ -26,9 +26,6 @@
     <artifact
         location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
         type="SPLIT" />
-    <artifact
-        location="/home/dmitry/appTest/appTest/app/build/outputs/apk/app-debug.apk"
-        type="SPLIT_MAIN" />
     <artifact
         location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
         type="SPLIT" />
@@ -59,17 +56,17 @@
     <artifact
         location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
         type="SPLIT" />
+    <artifact
+        location="/home/dmitry/appTest/appTest/app/build/outputs/apk/app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1507112449629"
+        timestamp="1507112765469"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
             type="SPLIT" />
-        <artifact
-            location="/home/dmitry/appTest/appTest/app/build/outputs/apk/app-debug.apk"
-            type="SPLIT_MAIN" />
         <artifact
             location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
             type="SPLIT" />
@@ -100,6 +97,9 @@
         <artifact
             location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
             type="SPLIT" />
+        <artifact
+            location="/home/dmitry/appTest/appTest/app/build/outputs/apk/app-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
 
 </instant-run>

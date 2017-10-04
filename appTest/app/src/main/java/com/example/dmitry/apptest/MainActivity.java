@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements ServiceHelper.Ser
         signInButton.setEnabled(userData != null && userData.isValid());
 
 
-        if(userData != null) {
+        if(userData != null && userData.login != null && userData.password != null) {
             loginEdit.setText(userData.login);
             passwordEdit.setText(userData.password);
         }
