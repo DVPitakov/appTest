@@ -16,12 +16,12 @@
         "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/drawable/abc_vector_test.xml"
     },
     {
-        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable/abc_text_cursor_material.xml",
-        "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/drawable/abc_text_cursor_material.xml"
-    },
-    {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable/abc_edit_text_material.xml",
         "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/drawable/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable/abc_text_cursor_material.xml",
+        "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/drawable/abc_text_cursor_material.xml"
     },
     {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_small_material.xml",
@@ -100,12 +100,12 @@
         "source": "/home/dmitry/.android/build-cache/203aa579ecbb49289b654bc32017fc74f7d965c6/output/res/drawable/design_password_eye.xml"
     },
     {
-        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable/abc_tab_indicator_material.xml",
-        "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/drawable/abc_tab_indicator_material.xml"
-    },
-    {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_internal_bg.xml",
         "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/drawable/abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable/abc_tab_indicator_material.xml",
+        "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/drawable/abc_tab_indicator_material.xml"
     },
     {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable/abc_btn_radio_material.xml",

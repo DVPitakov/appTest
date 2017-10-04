@@ -16,12 +16,12 @@
         "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/drawable-xxxhdpi-v4/abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
-        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/design_ic_visibility.png",
-        "source": "/home/dmitry/.android/build-cache/203aa579ecbb49289b654bc32017fc74f7d965c6/output/res/drawable-xxxhdpi-v4/design_ic_visibility.png"
-    },
-    {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/abc_ic_menu_selectall_mtrl_alpha.png",
         "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/drawable-xxxhdpi-v4/abc_ic_menu_selectall_mtrl_alpha.png"
+    },
+    {
+        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/design_ic_visibility.png",
+        "source": "/home/dmitry/.android/build-cache/203aa579ecbb49289b654bc32017fc74f7d965c6/output/res/drawable-xxxhdpi-v4/design_ic_visibility.png"
     },
     {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/abc_ic_star_half_black_36dp.png",

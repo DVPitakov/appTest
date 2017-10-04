@@ -4,12 +4,12 @@
         "source": "/home/dmitry/appTest/appTest/app/src/main/res/drawable-xxhdpi/ab_texture_tile_example.png"
     },
     {
-        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable-xxhdpi/tab_selected_pressed_example.9.png",
-        "source": "/home/dmitry/appTest/appTest/app/src/main/res/drawable-xxhdpi/tab_selected_pressed_example.9.png"
-    },
-    {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable-xxhdpi/btn_cab_done_default_example.9.png",
         "source": "/home/dmitry/appTest/appTest/app/src/main/res/drawable-xxhdpi/btn_cab_done_default_example.9.png"
+    },
+    {
+        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable-xxhdpi/tab_selected_pressed_example.9.png",
+        "source": "/home/dmitry/appTest/appTest/app/src/main/res/drawable-xxhdpi/tab_selected_pressed_example.9.png"
     },
     {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/drawable-xxhdpi/btn_cab_done_focused_example.9.png",
