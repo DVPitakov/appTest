@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,56 +13,44 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.dmitry.apptest.GitHubObjects.Commit;
+import com.example.dmitry.apptest.GitHubObjects.CommitsList;
 import com.example.dmitry.apptest.GitHubObjects.GitHubImage;
 import com.example.dmitry.apptest.GitHubObjects.GitHubObject;
 import com.example.dmitry.apptest.GitHubObjects.Repo;
 import com.example.dmitry.apptest.GitHubObjects.ReposList;
 import com.example.dmitry.apptest.GitHubObjects.ServerResponse;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class UserRepositoriesActivity extends AppCompatActivity implements ServiceHelper.ServiceHelperListener {
 
-    GridView gvMain;
+    LinearLayout linearLayout;
     ReposList reposList;
-    UserRepositoryesAdapter adapter;
-    ArrayList<String> imageUrls = new ArrayList<>();
-    HashMap<String, Bitmap> images = new HashMap<>();
-    HashMap<String, View> views = new HashMap<>();
+    HashMap<ImageView, String> imageViewStringHashMap = new HashMap<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user_repositories);
+        linearLayout = (LinearLayout)findViewById(R.id.userRepositoriesTable);
+
         String uri = getIntent().getStringExtra("repoUrl");
         ServiceHelper.getInstance().removeListener();
         ServiceHelper.getInstance().setListener(this);
 
-        //reposList = savedInstanceState.
         if (reposList == null) {
             ServiceHelper.getInstance().sendRequest(this.getBaseContext(),
                     MyIntentService.GET_REPOS_LIST, uri);
         }
-        else {
-            updateGrid();
-        }
 
-        setContentView(R.layout.activity_user_repositories);
 
-        gvMain = (GridView) findViewById(R.id.repositoryGrid);
-        gvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(UserRepositoriesActivity.this, CommitsActivity.class);
-                if (i >= 5) {
-                    i -= 5;
-                    intent.putExtra("repoUrl", reposList.repos.get(i / 5).commitsUrl);
-                    startActivity(intent);
-                }
-            }
-        });
     }
 
     @Override
@@ -75,35 +64,103 @@ public class UserRepositoriesActivity extends AppCompatActivity implements Servi
         if(data.getInt(ServerResponse.STATUS) == 200) {
             GitHubObject gitHubObject = data.getParcelable(ServerResponse.PARCEABLE);
             if (gitHubObject.getClass() == ReposList.class) {
-                reposList = (ReposList)gitHubObject;
-                for(Repo repo: reposList.repos) {
-                    imageUrls.add(repo.owner.avatarUrl);
+                imageViewStringHashMap = tableCreate((ReposList)gitHubObject);
+                HashSet<String> hashSetForOnlyOneRequestRepSameUri = new HashSet<>();
+                for(Repo repo: ((ReposList)gitHubObject).repos) {
+                    hashSetForOnlyOneRequestRepSameUri.add(repo.owner.avatarUrl);
                 }
-                HashSet<String> hashSet = new HashSet<>(imageUrls);
-                for(String url: hashSet) {
-                    ServiceHelper.getInstance().sendRequest(UserRepositoriesActivity.this
-                            ,MyIntentService.GET_IMAGE, url);
+                for(String uri: hashSetForOnlyOneRequestRepSameUri) {
+                    ServiceHelper.getInstance().sendRequest(this, MyIntentService.GET_IMAGE, uri);
                 }
-                adapter = new UserRepositoryesAdapter(this, reposList, imageUrls, images, views);
             }
             else if(gitHubObject.getClass() == GitHubImage.class) {
                 GitHubImage gitHubImage = (GitHubImage)gitHubObject;
-                images.put(gitHubImage.uri, gitHubImage.bitmap);
-
+                tableUpdate(imageViewStringHashMap, gitHubImage.uri, gitHubImage.bitmap);
             }
-            updateGrid();
 
         }
 
 
     }
 
-    void updateGrid() {
-        gvMain.setAdapter(adapter);
-        gvMain.setHorizontalSpacing(0);
-        gvMain.setMinimumHeight((int)getResources().getDimension(R.dimen.UserRepoH));
-        gvMain.setVerticalSpacing((int)getResources().getDimension(R.dimen.UserRepoH));
-        gvMain.setNumColumns(5);
+
+
+    private void tableUpdate(HashMap<ImageView, String> hashMap, String uri, Bitmap newBitmap) {
+        for(Map.Entry<ImageView, String> entry: hashMap.entrySet()) {
+            if(entry.getValue().equals(uri)) {
+                entry.getKey().setImageBitmap(newBitmap);
+            }
+        }
+    }
+
+    private HashMap<ImageView, String> tableCreate(ReposList reposList) {
+        HashMap<ImageView,String> imageViews = new HashMap<>();
+
+        for(Repo repo: reposList.repos) {
+            LinearLayout layout = new LinearLayout(this);
+            layout.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT
+                    , LinearLayout.LayoutParams.WRAP_CONTENT);
+            layout.setLayoutParams(layoutParams);
+            LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT
+                    , LinearLayout.LayoutParams.WRAP_CONTENT);
+            textLayoutParams.weight = 1;
+
+            TextView gitText = new TextView(this);
+            gitText.setText(repo.name);
+            gitText.setLayoutParams(textLayoutParams);
+
+            TextView ownerNameText = new TextView(this);
+            ownerNameText.setText(repo.owner.login);
+            ownerNameText.setLayoutParams(textLayoutParams);
+
+            ImageView ownerImg = new ImageView(this);
+            ownerImg.setImageResource(R.mipmap.ic_launcher_round);
+            ownerImg.setLayoutParams(textLayoutParams);
+            ownerImg.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            TextView watchesText = new TextView(this);
+            watchesText.setText(String.valueOf(repo.watchers));
+            watchesText.setLayoutParams(textLayoutParams);
+
+            TextView forksText = new TextView(this);
+            forksText.setText(String.valueOf(repo.forks));
+            forksText.setLayoutParams(textLayoutParams);
+
+            if (Build.VERSION.SDK_INT >= 17) {
+                gitText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                ownerNameText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                watchesText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                forksText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            }
+
+            layout.addView(gitText);
+            layout.addView(ownerNameText);
+            layout.addView(ownerImg);
+            layout.addView(watchesText);
+            layout.addView(forksText);
+            layout.setDividerDrawable(getResources()
+                    .getDrawable(R.drawable.btn_cab_done_focused_example));
+            layout.setDividerPadding((int)(getResources().getDimension(R.dimen.horizontal_padding)));
+            layout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+            final String uri = repo.commitsUrl;
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    UserRepositoriesActivity.this.openCommits(uri);
+                    Intent intent = new Intent(UserRepositoriesActivity.this, CommitsActivity.class);
+                    intent.putExtra("repoUrl", uri);
+                    startActivity(intent);
+                }
+            });
+            linearLayout.addView(layout);
+
+            imageViews.put(ownerImg, repo.owner.avatarUrl);
+        }
+
+        return imageViews;
     }
 
     @Override
@@ -111,5 +168,9 @@ public class UserRepositoriesActivity extends AppCompatActivity implements Servi
         menu.clear();
         getMenuInflater().inflate(R.menu.menu_user_repositories, menu);
         return true;
+    }
+
+    void openCommits(String uri) {
+
     }
 }

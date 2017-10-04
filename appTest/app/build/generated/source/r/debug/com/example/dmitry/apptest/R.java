@@ -2980,25 +2980,26 @@ containing a value of this type.
         public static final int hint_alpha_material_light=0x7f080080;
         public static final int hint_pressed_alpha_material_dark=0x7f080081;
         public static final int hint_pressed_alpha_material_light=0x7f080082;
-        public static final int item_touch_helper_max_drag_scroll_per_frame=0x7f080083;
-        public static final int item_touch_helper_swipe_escape_max_velocity=0x7f080084;
-        public static final int item_touch_helper_swipe_escape_velocity=0x7f080085;
-        public static final int notification_action_icon_size=0x7f080086;
-        public static final int notification_action_text_size=0x7f080087;
-        public static final int notification_big_circle_margin=0x7f080088;
+        public static final int horizontal_padding=0x7f080083;
+        public static final int item_touch_helper_max_drag_scroll_per_frame=0x7f080084;
+        public static final int item_touch_helper_swipe_escape_max_velocity=0x7f080085;
+        public static final int item_touch_helper_swipe_escape_velocity=0x7f080086;
+        public static final int notification_action_icon_size=0x7f080087;
+        public static final int notification_action_text_size=0x7f080088;
+        public static final int notification_big_circle_margin=0x7f080089;
         public static final int notification_content_margin_start=0x7f08001a;
-        public static final int notification_large_icon_height=0x7f080089;
-        public static final int notification_large_icon_width=0x7f08008a;
+        public static final int notification_large_icon_height=0x7f08008a;
+        public static final int notification_large_icon_width=0x7f08008b;
         public static final int notification_main_column_padding_top=0x7f08001b;
         public static final int notification_media_narrow_margin=0x7f08001c;
-        public static final int notification_right_icon_size=0x7f08008b;
+        public static final int notification_right_icon_size=0x7f08008c;
         public static final int notification_right_side_padding_top=0x7f080018;
-        public static final int notification_small_icon_background_padding=0x7f08008c;
-        public static final int notification_small_icon_size_as_large=0x7f08008d;
-        public static final int notification_subtext_size=0x7f08008e;
-        public static final int notification_top_pad=0x7f08008f;
-        public static final int notification_top_pad_large_text=0x7f080090;
-        public static final int text_margin=0x7f080091;
+        public static final int notification_small_icon_background_padding=0x7f08008d;
+        public static final int notification_small_icon_size_as_large=0x7f08008e;
+        public static final int notification_subtext_size=0x7f08008f;
+        public static final int notification_top_pad=0x7f080090;
+        public static final int notification_top_pad_large_text=0x7f080091;
+        public static final int text_margin=0x7f080092;
     }
     public static final class drawable {
         public static final int ab_background_textured_example=0x7f020000;
@@ -3186,7 +3187,7 @@ containing a value of this type.
         public static final int clip_horizontal=0x7f0d003a;
         public static final int clip_vertical=0x7f0d003b;
         public static final int collapseActionView=0x7f0d0042;
-        public static final int commitsView=0x7f0d007a;
+        public static final int commitsLinearLayout=0x7f0d007a;
         public static final int contentPanel=0x7f0d0055;
         public static final int custom=0x7f0d005c;
         public static final int customPanel=0x7f0d005b;
@@ -3250,7 +3251,6 @@ containing a value of this type.
         public static final int progress_circular=0x7f0d0006;
         public static final int progress_horizontal=0x7f0d0007;
         public static final int radio=0x7f0d0064;
-        public static final int repositoryGrid=0x7f0d0082;
         public static final int right=0x7f0d0035;
         public static final int right_icon=0x7f0d009e;
         public static final int right_side=0x7f0d009a;
@@ -3311,6 +3311,7 @@ containing a value of this type.
         public static final int tvText=0x7f0d008f;
         public static final int up=0x7f0d000d;
         public static final int useLogo=0x7f0d0020;
+        public static final int userRepositoriesTable=0x7f0d0082;
         public static final int view_offset_helper=0x7f0d000e;
         public static final int visible=0x7f0d00a7;
         public static final int withText=0x7f0d0045;

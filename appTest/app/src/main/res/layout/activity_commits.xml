@@ -5,17 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.dmitry.apptest.CommitsActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/ab_texture_tile_example"
+            android:divider="@drawable/btn_cab_done_default_example"
+            android:dividerPadding="3dp"
+            android:showDividers="middle">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Хэш"
+                android:gravity="center"
+                android:textAlignment="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Сообщение"
+                android:gravity="center"
+                android:textAlignment="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Автор"
+                android:gravity="center"
+                android:textAlignment="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Дата"
+                android:gravity="center"
+                android:textAlignment="center"/>
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:divider="@drawable/ab_transparent_example"
+                android:dividerPadding="3dp"
+                android:showDividers="middle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/commitsLinearLayout">
+            </LinearLayout>
+        </ScrollView>
 
-    <GridView
-        android:id="@+id/commitsView"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
-    </GridView>
+
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
+

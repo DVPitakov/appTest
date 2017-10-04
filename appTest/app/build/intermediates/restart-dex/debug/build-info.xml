@@ -6,30 +6,34 @@
     density="420dpi"
     format="10"
     plugin-version="2.3.0"
-    timestamp="1506926551876"
+    timestamp="1507112081164"
     token="8531898008548327956"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="42" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="5" />
     <task
         name="verifier"
-        duration="0" />
+        duration="1" />
+
+    <artifact
+        location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
+        type="SPLIT" />
+    <artifact
+        location="/home/dmitry/appTest/appTest/app/build/outputs/apk/app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1506887397527"
+        timestamp="1507099298748"
         verifier="FULL_BUILD_REQUESTED" >
-        <artifact
-            location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
-            type="SPLIT" />
         <artifact
             location="/home/dmitry/appTest/appTest/app/build/outputs/apk/app-debug.apk"
             type="SPLIT_MAIN" />
@@ -61,12 +65,29 @@
             location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
             type="SPLIT" />
         <artifact
+            location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
+            type="SPLIT" />
+        <artifact
             location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
             type="SPLIT" />
     </build>
     <build
         build-mode="COLD"
-        timestamp="1506926459404"
+        timestamp="1507110539062"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
+            type="SPLIT" />
+        <artifact
+            location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
+            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        timestamp="1507112081164"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/home/dmitry/appTest/appTest/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
@@ -75,9 +96,5 @@
             location="/home/dmitry/appTest/appTest/app/build/outputs/apk/app-debug.apk"
             type="SPLIT_MAIN" />
     </build>
-    <build
-        build-mode="COLD"
-        timestamp="1506926551876"
-        verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>

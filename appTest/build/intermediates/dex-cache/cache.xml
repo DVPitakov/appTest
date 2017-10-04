@@ -2,6 +2,33 @@
 <items version="2" >
 
     <item
+        is-multidex="true"
+        jar="/home/dmitry/appTest/appTest/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="78afc2524b42b4d6fc9c2e4c9d11b5548a938dd1">
+        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_64fd430ffd8ed9cebf2afdebbda5bfa8754aff57/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/dmitry/.android/build-cache/a0dda4ba8fcd5df0d0dc9001418db52ea89dfa11/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/classes_aa548ffda02efdc3e74123e8df89cf7d4474760c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/dmitry/.android/build-cache/bcbfff657882cd6de44ae02a028d6c9952449580/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/classes_e069c746178b836c880935efea2ff0dd9f607f64.jar" />
+    </item>
+    <item
         is-multidex="false"
         jar="/home/dmitry/.android/build-cache/d78dbb6072d1e8965679bd206f931371f1a0676f/output/jars/classes.jar"
         jumboMode="false"
@@ -9,6 +36,15 @@
         revision="25.0.2"
         sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
         <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/classes_0fdaab6a7d1da582dce23941a2adfe3d4ccd16f2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/dmitry/.android/build-cache/4fbb9e3ea249c44b963885ea32b0c5e8a2b694be/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/classes_a56518e140805c8116c5aa9286541f10f2e60104.jar" />
     </item>
     <item
         is-multidex="false"
@@ -47,49 +83,13 @@
         <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/classes_08978f7d59b62ad19a37b4846fe9c9ad020a035b.jar" />
     </item>
     <item
-        is-multidex="false"
-        jar="/home/dmitry/.android/build-cache/409c5f8d7d7d0ee7190b3c2d349f97dbd7142017/output/jars/classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/home/dmitry/appTest/appTest/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
-        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/classes_ba4ba30e0d8fa6926788433f9c2d8a2853ac0558.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/root/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
-        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/support-annotations-25.3.1_eb9ab7c204a4255d6e9507ce9000c65ba9091649.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/dmitry/.android/build-cache/a0dda4ba8fcd5df0d0dc9001418db52ea89dfa11/output/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
-        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/classes_aa548ffda02efdc3e74123e8df89cf7d4474760c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/dmitry/.android/build-cache/bcbfff657882cd6de44ae02a028d6c9952449580/output/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
-        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/classes_e069c746178b836c880935efea2ff0dd9f607f64.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/dmitry/.android/build-cache/4fbb9e3ea249c44b963885ea32b0c5e8a2b694be/output/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/classes_a56518e140805c8116c5aa9286541f10f2e60104.jar" />
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_76905e3c7e835b5bb24092313d8c6d22abc175d9/classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -108,6 +108,24 @@
         revision="25.0.2"
         sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
         <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/classes_246af6245168226cffede4588513cae4e9ef5b60.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/dmitry/.android/build-cache/409c5f8d7d7d0ee7190b3c2d349f97dbd7142017/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/classes_ba4ba30e0d8fa6926788433f9c2d8a2853ac0558.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/home/dmitry/appTest/appTest/app/build/intermediates/pre-dexed/debug/support-annotations-25.3.1_eb9ab7c204a4255d6e9507ce9000c65ba9091649.jar" />
     </item>
     <item
         is-multidex="false"

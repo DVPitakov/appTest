@@ -4,24 +4,24 @@
         "source": "/home/dmitry/.android/build-cache/203aa579ecbb49289b654bc32017fc74f7d965c6/output/res/layout/design_navigation_item_subheader.xml"
     },
     {
-        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
-        "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/layout/notification_template_part_chronometer.xml"
-    },
-    {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_title_material.xml",
         "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/layout/abc_alert_dialog_title_material.xml"
+    },
+    {
+        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
+        "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/layout/notification_template_part_chronometer.xml"
     },
     {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/layout/abc_popup_menu_header_item_layout.xml",
         "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/layout/abc_popup_menu_header_item_layout.xml"
     },
     {
-        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/layout/notification_template_media_custom.xml",
-        "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/layout/notification_template_media_custom.xml"
-    },
-    {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/layout/design_navigation_menu.xml",
         "source": "/home/dmitry/.android/build-cache/203aa579ecbb49289b654bc32017fc74f7d965c6/output/res/layout/design_navigation_menu.xml"
+    },
+    {
+        "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/layout/notification_template_media_custom.xml",
+        "source": "/home/dmitry/.android/build-cache/d9df47878d59f1e8fec617af9b01a1d659117d41/output/res/layout/notification_template_media_custom.xml"
     },
     {
         "merged": "/home/dmitry/appTest/appTest/app/build/intermediates/res/merged/debug/layout/notification_template_part_time.xml",

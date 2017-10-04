@@ -1,4 +1,7 @@
-#Mon Oct 02 10:18:51 MSK 2017
-base.0=/home/dmitry/appTest/appTest/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
+#Wed Oct 04 13:14:41 MSK 2017
+base.0=/home/dmitry/appTest/appTest/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_64fd430ffd8ed9cebf2afdebbda5bfa8754aff57
+renamed.1=classes2.dex
 renamed.0=classes.dex
-file.0=/home/dmitry/appTest/appTest/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
+file.1=/home/dmitry/appTest/appTest/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_76905e3c7e835b5bb24092313d8c6d22abc175d9/classes.dex
+base.1=/home/dmitry/appTest/appTest/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_76905e3c7e835b5bb24092313d8c6d22abc175d9
+file.0=/home/dmitry/appTest/appTest/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_64fd430ffd8ed9cebf2afdebbda5bfa8754aff57/classes.dex

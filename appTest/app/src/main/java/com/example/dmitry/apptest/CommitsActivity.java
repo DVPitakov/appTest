@@ -2,27 +2,23 @@ package com.example.dmitry.apptest;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.dmitry.apptest.GitHubObjects.Commit;
 import com.example.dmitry.apptest.GitHubObjects.CommitsList;
-import com.example.dmitry.apptest.GitHubObjects.GitHubImage;
 import com.example.dmitry.apptest.GitHubObjects.GitHubObject;
-import com.example.dmitry.apptest.GitHubObjects.Repo;
-import com.example.dmitry.apptest.GitHubObjects.ReposList;
 import com.example.dmitry.apptest.GitHubObjects.ServerResponse;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class CommitsActivity extends AppCompatActivity implements ServiceHelper.ServiceHelperListener{
 
-    GridView gvMain;
-    CommitsAdapter adapter;
+    LinearLayout linearLayout;
 
     @Override
     protected void onStart() {
@@ -41,11 +37,55 @@ public class CommitsActivity extends AppCompatActivity implements ServiceHelper.
         if(data.getInt(ServerResponse.STATUS) == 200) {
             GitHubObject gitHubObject = data.getParcelable(ServerResponse.PARCEABLE);
             if (gitHubObject.getClass() == CommitsList.class) {
-                adapter = new CommitsAdapter(this, (CommitsList)gitHubObject);
-                gvMain.setMinimumHeight((int)getResources().getDimension(R.dimen.UserRepoH));
-                gvMain.setVerticalSpacing((int)getResources().getDimension(R.dimen.UserRepoH));
-                gvMain.setAdapter(adapter);
-                gvMain.setNumColumns(4);
+                for(Commit commit :((CommitsList) gitHubObject).commits) {
+                    LinearLayout layout = new LinearLayout(this);
+                    layout.setOrientation(LinearLayout.HORIZONTAL);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT
+                            , LinearLayout.LayoutParams.WRAP_CONTENT);
+                    layout.setLayoutParams(layoutParams);
+                    LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT
+                            , LinearLayout.LayoutParams.WRAP_CONTENT);
+                    textLayoutParams.weight = 1;
+
+                    TextView shaText = new TextView(this);
+                    shaText.setText(commit.sha);
+                    shaText.setLayoutParams(textLayoutParams);
+
+                    TextView messageText = new TextView(this);
+                    messageText.setText(commit.message);
+                    messageText.setLayoutParams(textLayoutParams);
+                    if (Build.VERSION.SDK_INT >= 17) {
+                        messageText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    }
+
+                    TextView authorText = new TextView(this);
+                    authorText.setText(commit.author);
+                    authorText.setLayoutParams(textLayoutParams);
+
+                    TextView dateText = new TextView(this);
+                    dateText.setText(commit.date);
+                    dateText.setLayoutParams(textLayoutParams);
+
+                    layout.addView(shaText);
+                    layout.addView(messageText);
+                    layout.addView(authorText);
+                    layout.addView(dateText);
+                    layout.setDividerDrawable(getResources()
+                            .getDrawable(R.drawable.btn_cab_done_focused_example));
+                    layout.setDividerPadding((int)(getResources().getDimension(R.dimen.horizontal_padding)));
+                    layout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+                    linearLayout.addView(layout);
+
+                    if (Build.VERSION.SDK_INT >= 17) {
+                        authorText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        dateText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        messageText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        shaText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    }
+
+                }
             }
 
         }
@@ -60,13 +100,8 @@ public class CommitsActivity extends AppCompatActivity implements ServiceHelper.
         ServiceHelper.getInstance().setListener(this);
         ServiceHelper.getInstance().sendRequest(this.getBaseContext(),
                 MyIntentService.GET_COMMITS_LIST, uri);
-        gvMain = (GridView) findViewById(R.id.commitsView);
-        gvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        linearLayout = (LinearLayout)findViewById(R.id.commitsLinearLayout);
 
-            }
-        });
     }
 
 
